@@ -7,7 +7,7 @@
       </el-sub-menu>
       <el-menu-item index="/About">About</el-menu-item>
 
-      <div class="flex-box-center">
+      <div class="flex-box-center flex-grow">
         <el-switch
           v-model="theme"
           :active-action-icon="Sunny"
