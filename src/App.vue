@@ -63,11 +63,11 @@ const activeIndex = ref("1");
 const switchRef = ref();
 const activeName = ref("");
 const router = useRouter();
-const routerArr = ref(router.getRoutes().filter((v) => v.path == "/"));
+const routerArr = ref(router.getRoutes().filter((v: { path: string; }) => v.path == "/"));
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to: { path: string; }, _from: any, next: () => void) => {
   // to and from are both route objects. must call `next`.
-  const flag = routerArr.value.some((v) => v.path === to.path);
+  const flag = routerArr.value.some((v: { path: any; }) => v.path === to.path);
   if (!flag) routerArr.value.push(to);
   activeName.value = to.path;
   next();
@@ -78,7 +78,7 @@ const handleTabClick = (tab: any) => {
 };
 
 const handleTabRemove = (tab: any) => {
-  const index = routerArr.value.findIndex((v) => v.path === tab);
+  const index = routerArr.value.findIndex((v: { path: any; }) => v.path === tab);
   routerArr.value.splice(index, 1);
   if (tab === activeName.value) router.push(routerArr.value[index - 1].path);
 };
@@ -149,5 +149,10 @@ const updateView = (isDark: boolean) => {
   flex: 1;
   overflow: hidden;
   padding: 16px;
+}
+
+:deep(.content-views > div) {
+  width: 100%;
+  height: 100%;
 }
 </style>
