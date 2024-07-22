@@ -63,12 +63,12 @@ const activeIndex = ref("1");
 const switchRef = ref();
 const activeName = ref("");
 const router = useRouter();
-const routerArr = ref(router.getRoutes().filter((v: { path: string; }) => v.path == "/"));
+const routerArr = ref(router.getRoutes().filter((v) => v.path == "/"));
 
-router.beforeEach((to: { path: string; }, _from: any, next: () => void) => {
+router.beforeEach((to, _from, next: () => void) => {
   // to and from are both route objects. must call `next`.
-  const flag = routerArr.value.some((v: { path: any; }) => v.path === to.path);
-  if (!flag) routerArr.value.push(to);
+  const flag = routerArr.value.some((v: { path: string }) => v.path === to.path);
+  if (!flag) routerArr.value.push(to as any);
   activeName.value = to.path;
   next();
 });

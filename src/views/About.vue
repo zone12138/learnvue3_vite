@@ -39,7 +39,7 @@ onUnmounted(() => {
 })
 
 const vPermission = {
-  mounted(el: HTMLElement, binding: any) {
+  mounted(el: HTMLButtonElement, binding: any) {
     if (!binding.value) {
       el.disabled = true;
       el.classList.add("is-disabled");
