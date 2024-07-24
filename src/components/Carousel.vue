@@ -156,14 +156,7 @@ const resetTimer = () => {
 };
 
 const setActiveItem = (index: number) => {
-  // if (typeof index === "string") {
-  //   const filteredItems = items.value.filter((item) => item.name === index);
-  //   if (filteredItems.length > 0) {
-  //     index = items.value.indexOf(filteredItems[0]);
-  //   }
-  // }
-  index = Number(index);
-  if (isNaN(index) || index !== Math.floor(index)) {
+  if (index !== Math.floor(index)) {
     console.warn("[Element Warn][Carousel]index must be an integer.");
     return;
   }
