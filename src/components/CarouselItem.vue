@@ -10,6 +10,7 @@
       'is-in-stage-Sibling-dir': isStageSiblingDir,
       'is-duration-zero': isDurationZero,
       'is-active': active,
+      'is-opacity': isOpacity,
     }"
     :style="{
       ...itemStyle,
@@ -43,7 +44,7 @@ const carouselData: CarouselData = inject<CarouselData>(
 );
 
 let Transform_Scale = 1;
-let carouseItemComp:any
+let carouseItemComp: any;
 
 const carouselItem = ref();
 const translate = ref(0);
@@ -55,7 +56,7 @@ const isStageSibling = ref(false);
 const isStageSiblingDir = ref(false);
 const isDurationZero = ref(false);
 const isRight = ref(true);
-
+const isOpacity = ref(false);
 
 const itemStyle = computed(() => {
   const value = `translateX(${translate.value}%) scale(${Transform_Scale})`;
@@ -86,6 +87,11 @@ watch(itemsLength, (val) => {
       handleTransitionEnd
     );
   }
+});
+
+watch(translate, (val, oldVal) => {
+  if (!ready.value) return;
+  isOpacity.value = Math.abs(val - oldVal) > 100;
 });
 
 const processIndex = (index: number, activeIndex: number, length: number) => {
@@ -142,7 +148,10 @@ const translateItem = (
   }
   // this.scale = this.active ? 1 : CARD_SCALE
   Transform_Scale = 1;
-  ready.value = true;
+
+  nextTick(() => {
+    ready.value = true;
+  });
 };
 
 const handleTransitionStart = () => {
@@ -163,7 +172,6 @@ const calcStageSibling = (activeIndex: number) => {
   if (length === 0) return;
   let index = 0;
   carouselData.items.forEach((item, i) => {
-    console.log(toRaw(item).uid, carouseItemComp.uid);
     if (toRaw(item).uid == carouseItemComp.uid) index = i;
   });
   isStageSibling.value =
@@ -211,7 +219,7 @@ const autoprefixer = (style: Style) => {
 
 onMounted(() => {
   carouseItemComp = getCurrentInstance();
-  carouselData.collectChildComp(carouseItemComp)
+  carouselData.collectChildComp(carouseItemComp);
 });
 
 onBeforeUnmount(() => {
@@ -224,19 +232,14 @@ onBeforeUnmount(() => {
 });
 
 defineExpose({
-  name: 'ElCarouselItem',
+  name: "ElCarouselItem",
   translateItem,
   setFourthCardPosition,
 });
 </script>
 
 <style scoped>
-/* .xie-carousel__item {
-  background: black;
-} */
-
 .xie-carousel__item--card {
-  /* width: 33.33%; */
   width: var(--width);
   padding: 0 5px;
   transition: transform 0.5s ease-in-out;
@@ -252,9 +255,11 @@ defineExpose({
 .xie-carousel__item--card.is-in-stage-Sibling.is-in-stage-Sibling-dir {
   z-index: 2;
 }
+.xie-carousel__item--card.is-opacity {
+  opacity: 0;
+}
 
 .xie-carousel__item--card.is-duration-zero {
-  /* visibility: hidden; */
   transition-duration: 0s !important;
 }
 
@@ -267,9 +272,7 @@ defineExpose({
 .xie-carousel__item {
   display: inline-block;
   overflow: hidden;
-  z-index: 0;
+  z-index: -1;
 }
-/* .xie-carousel__item.is-active {
-  z-index: 2;
-} */
+
 </style>

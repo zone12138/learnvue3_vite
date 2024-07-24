@@ -1,7 +1,6 @@
 <template>
   <div
     class="xie-carousel xie-carousel--horizontal xie-carousel--card"
-    @mouseenter.stop="handleMouseEnter"
     @mouseleave.stop="handleMouseLeave"
     @mousemove.stop="throttledMouseMove"
     ref="carousel"
@@ -77,10 +76,6 @@ const activeIndex = ref(-1);
 const hover = ref(false);
 const operationInRight = ref(false);
 
-// const hasLabel = computed(() => {
-//   return items.some(item => item.label.toString().length > 0)
-// })
-
 const showArrow = computed(() => {
   return items.value.length > Carousel_Column;
 });
@@ -124,14 +119,12 @@ watch(operationInRight, (val) => {
   }
 });
 
-const handleMouseEnter = () => {};
 const handleMouseLeave = () => {
   hover.value = false;
   startTimer();
 };
 
 const resetItemPosition = (oldIndex: number) => {
-  console.log("resetItemPosition")
   items.value.forEach((item, index) => {
     item.exposed.translateItem(index, activeIndex.value, oldIndex);
   });
