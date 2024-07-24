@@ -231,9 +231,9 @@ defineExpose({
 </script>
 
 <style scoped>
-.xie-carousel__item {
-  /* background: black; */
-}
+/* .xie-carousel__item {
+  background: black;
+} */
 
 .xie-carousel__item--card {
   /* width: 33.33%; */
