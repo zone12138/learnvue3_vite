@@ -108,18 +108,12 @@ const processIndex = (index: number, activeIndex: number, length: number) => {
 };
 
 const calcCardTranslate = (index: number, activeIndex: number) => {
-  // const parentWidth = carouselData.$el.offsetWidth;
   if (inStage.value) {
     return (index - activeIndex + 1) * 100;
-    // return (parentWidth * (index - activeIndex + 1)) / 3
   } else if (index < activeIndex) {
     return -100;
-    // return parentWidth / -3
-    // return -(1 + CARD_SCALE) * parentWidth / 4;
   } else {
     return carouselData.column * 100;
-    // return parentWidth
-    // return -(1 + CARD_SCALE) * parentWidth / 4;
   }
 };
 
@@ -146,8 +140,6 @@ const translateItem = (
   } else {
     translate.value = calcCardTranslate(index, activeIndex);
   }
-  // this.scale = this.active ? 1 : CARD_SCALE
-  Transform_Scale = 1;
 
   nextTick(() => {
     ready.value = true;
