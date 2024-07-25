@@ -17,6 +17,14 @@ const routes = [
       title: "相关",
     },
   },
+  {
+    path: "/Carousel",
+    name: "carousel",
+    component: () => import("@/views/CarouselView.vue"),
+    meta: {
+      title: "轮播图",
+    },
+  },
 ];
 
 export default createRouter({

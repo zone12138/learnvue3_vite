@@ -2,7 +2,7 @@
  * @Author: xie 1459547902@qq.com
  * @Date: 2024-07-22 09:41:22
  * @LastEditors: xie 1459547902@qq.com
- * @LastEditTime: 2024-07-22 14:40:19
+ * @LastEditTime: 2024-07-25 17:21:16
  * @FilePath: \learnvue3_vite\src\App.vue
  * @Description: App.vue
 -->
@@ -20,6 +20,7 @@
           <el-menu-item index="/">Home</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="/About">About</el-menu-item>
+        <el-menu-item index="/Carousel">轮播图</el-menu-item>
       </el-menu>
       <div class="flex-box-center switch-change-theme" ref="switchRef">
         <el-switch
@@ -70,6 +71,7 @@ router.beforeEach((to, _from, next: () => void) => {
   const flag = routerArr.value.some((v: { path: string }) => v.path === to.path);
   if (!flag) routerArr.value.push(to as any);
   activeName.value = to.path;
+  activeIndex.value = to.path;
   next();
 });
 
