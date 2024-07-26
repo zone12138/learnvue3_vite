@@ -2,7 +2,7 @@
  * @Author: xie 1459547902@qq.com
  * @Date: 2024-07-22 09:41:22
  * @LastEditors: xie 1459547902@qq.com
- * @LastEditTime: 2024-07-25 17:21:16
+ * @LastEditTime: 2024-07-26 16:57:51
  * @FilePath: \learnvue3_vite\src\App.vue
  * @Description: App.vue
 -->
@@ -48,7 +48,7 @@
       <el-tab-pane
         v-for="{ path, meta } in routerArr"
         :key="path"
-        :label="meta.title"
+        :label="meta?.title"
         :name="path"
         :closable="path != '/'"
       >
@@ -59,17 +59,18 @@
 
 <script setup lang="ts">
 import { Sunny, Moon } from "@element-plus/icons-vue";
+import { _RouteRecordBase } from "vue-router";
 const theme = ref(true);
 const activeIndex = ref("1");
 const switchRef = ref();
 const activeName = ref("");
 const router = useRouter();
-const routerArr = ref(router.getRoutes().filter((v) => v.path == "/"));
+const routerArr = ref<_RouteRecordBase[]>(router.getRoutes().filter((v) => v.path == "/"));
 
 router.beforeEach((to, _from, next: () => void) => {
   // to and from are both route objects. must call `next`.
   const flag = routerArr.value.some((v: { path: string }) => v.path === to.path);
-  if (!flag) routerArr.value.push(to as any);
+  if (!flag) routerArr.value.push(to);
   activeName.value = to.path;
   activeIndex.value = to.path;
   next();

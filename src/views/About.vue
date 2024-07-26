@@ -2,7 +2,7 @@
  * @Author: xie 1459547902@qq.com
  * @Date: 2024-07-22 09:41:22
  * @LastEditors: xie 1459547902@qq.com
- * @LastEditTime: 2024-07-25 17:17:29
+ * @LastEditTime: 2024-07-26 14:40:43
  * @FilePath: \learnvue3_vite\src\views\About.vue
  * @Description: About.vue
 -->
@@ -20,7 +20,7 @@
         老牛用它的坚持，为这个家带来了希望和幸福，也让所有人都对它充满了敬佩。
       </span>
     </div>
-    <br>
+    <br />
     <div class="relative">
       <span class="label">故事再说一次：</span>
       <span>
@@ -47,5 +47,4 @@
     width: 130px;
   }
 }
-
 </style>

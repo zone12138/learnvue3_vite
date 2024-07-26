@@ -1,3 +1,11 @@
+/*
+ * @Author: xie 1459547902@qq.com
+ * @Date: 2024-07-22 09:41:22
+ * @LastEditors: xie 1459547902@qq.com
+ * @LastEditTime: 2024-07-26 14:28:38
+ * @FilePath: \learnvue3_vite\vite.config.ts
+ * @Description: vite.config.ts
+ */
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite";
@@ -21,4 +29,7 @@ export default defineConfig({
       "@": "/src",
     },
   },
+  define: {
+   __APP_VERSION__: JSON.stringify('1.0.0'),
+  }
 });
