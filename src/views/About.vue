@@ -7,7 +7,7 @@
  * @Description: About.vue
 -->
 <template>
-  <div>
+  <div ref="container">
     <div class="relative">
       <span class="label">故事：</span>
       <span>
@@ -33,10 +33,83 @@
         老牛用它的坚持，为这个家带来了希望和幸福，也让所有人都对它充满了敬佩。
       </span>
     </div>
+    <div ref="yyyyy">yyyyyy</div>
+
+    <input v-model="input" placeholder="" />
+
+    <el-button type="primary" @click="handleEditClass">修改class</el-button>
+    <el-button type="primary" @click="handleAddAttr">添加Attr</el-button>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useSupported, useMounted, useMutationObserver } from "@vueuse/core";
+const container = ref();
+const input = ref("input");
+const yyyyy = ref();
+const isSupported = useSupported(() => container.value);
+const isMounted = useMounted();
+
+let aaa = 'ppppp'
+
+console.log("==========  Setup  ==========");
+console.log("isSupported: ", isSupported.value);
+console.log("isMounted: ", isMounted.value);
+
+onScopeDispose(() => {
+  console.log("==========  onScopeDispose  ==========");
+});
+
+onUnmounted(() => {
+  console.log("==========  onUnmounted  ==========");
+});
+
+const watchYYYYY = watch(() => [toValue(input), aaa], ([val, aVal]) => {
+  console.log(aaa, aVal, "watchYYYYY");
+  console.log(input.value, val, "watchYYYYY");
+});
+
+const handleEditClass = () => {
+  if (!container.value) return;
+  container.value.children[0].classList.add("dark");
+  watchYYYYY();
+};
+
+
+const handleAddAttr = () => {
+  if (!container.value) return;
+  container.value.children[0].setAttribute("data-wwww", "11");
+  yyyyy.value.innerText = "iiii";
+
+  aaa = 'OOOOOO'
+};
+
+onMounted(() => {
+  console.log("==========  Mounted  ==========");
+  console.log("isSupported: ", isSupported.value);
+  console.log("isMounted: ", isMounted.value);
+
+  console.log(toValue(container).$el);
+  console.log(toValue(input))
+  console.log(toValue(input))
+
+  if (!container.value) return;
+  useMutationObserver(
+    container.value,
+    (mutations) => {
+      console.log(mutations);
+    },
+    {
+      childList: true,
+      characterData: true,
+      subtree: true,
+      attributeOldValue: true,
+      characterDataOldValue: true,
+      attributeFilter: ["class"],
+    }
+  );
+});
+</script>
 
 <style lang="scss" scoped>
 .relative {

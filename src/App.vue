@@ -33,7 +33,7 @@
     </div>
     <el-watermark class="content-views" content="Vue3 & Vite">
       <router-view v-slot="{ Component }">
-        <KeepAlive>
+        <KeepAlive :include="routerArr.map((v) => v.path)">
           <component :is="Component"></component>
         </KeepAlive>
       </router-view>
